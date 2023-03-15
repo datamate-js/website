@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="keyword" content="">
+	<meta name="description" content="">
+	<meta name="copyright" content="">
+	<title>Datamate.js</title>
+	<link rel="stylesheet" href="https://use.typekit.net/jqe1ksn.css">
+	<link href="index.css?1.2.6a3" rel="stylesheet" type="text/css">
+	<link href="prism/prism.css" rel="stylesheet" type="text/css">
+	<script src="js/p5.min.js"></script>
+	<script src="js/Datamate.js"></script>
+	<script src="js/MUAutoScroll.js"></script>
+	<script src="js/MUListDrawer.js"></script>
+	<script src="js/MUCSV.js"></script>
+	<script src="js/ReferenceManager.js"></script>
+	<script src="js/SampleManager.js"></script>
+	<script src="js/index.js"></script>
+	<script>
+		(function(d) {
+		  var config = {
+			kitId: 'gdc6iwd',
+			scriptTimeout: 3000,
+			async: true
+		  },
+		  h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+		})(document);
+	  </script>
+	<!-- <script src="prism/prism.js"></script> -->
+</head>
+
+<body>
+	<!--------------------------------------------------->
+	<!-- Header -->
+	<!--------------------------------------------------->
+	<header>
+		<h1><a href="./"><img src="images/rogo.png"></a></h1>
+	</header>
+
+	<!--------------------------------------------------->
+	<!-- Navigation (left contents) -->
+	<!--------------------------------------------------->
+	<nav>
+		<h3 id="nav-tutorial"><a href="index.html">tutorial</a></h3>
+		<h3 id="nav-download"><a href="download.html">download</a></h3>
+		<h3 id="nav-reference"><a href="reference.html">reference</a></h3>
+		<h3 id="nav-samples"><a href="samples.html">visualization samples</a></h3>
+		<!-- <ul id='index-multiple'>
+			<li><a href='#multiple-1' data-mu-autoscroll='{"duration":0.3, "offset":-10}'>1. データをつくる</a></li>
+			<li><a href='#multiple-2' data-mu-autoscroll='{"duration":0.3, "offset":-10}'>2. データを確認する</a></li>
+			<li><a href='#multiple-3' data-mu-autoscroll='{"duration":0.3, "offset":-10}'>3. データをグラフィックに反映させる</a></li>
+			<li><a href='#multiple-4' data-mu-autoscroll='{"duration":0.3, "offset":-10}'>4. データを時間で切り換える</a></li>
+			<li><a href='#multiple-5' data-mu-autoscroll='{"duration":0.3, "offset":-10}'>5. 自分で工夫する</a></li>
+		</ul> -->
+	</nav>
+
+	<!--------------------------------------------------->
+	<!-- Main (right contents) -->
+	<!--------------------------------------------------->
+	<main>
+		<!--------------------------------------------->
+		<!-- Single data Samples -->
+		<!--------------------------------------------->
+		<h2>reference</h2>
+		<section id="reference">
+      <h3>Begginer</h3>
+      <ul>
+          <h3>Make dataset</h3>
+          <li data-ref-manager="Datamate.make">Datamate.make(_rowKey, _values)</li>
+          
+          <h3>Show built-in chart</h3>
+          <li data-ref-manager="Datamate.plot">Datamate.plot()</li>
+
+          <h3>Get a value</h3>
+          <li data-ref-manager="Datamate.value">Datamate.value(_rowKey, _columnKey, _min=0, _max=0, _parameter=Datamate.ROW)</li>
+
+          <h3>Focus controls</h3>
+          <li data-ref-manager="Datamate.focusX">Datamate.focusX(_offset=0, _interpolation=false)</li>
+          <li data-ref-manager="Datamate.focusY">Datamate.focusY(_offset=0, _interpolation=false)</li>
+          <li data-ref-manager="Datamate.right">Datamate.right(_steps=1)</li>
+          <li data-ref-manager="Datamate.left">Datamate.left(_steps=1)</li>
+          <li data-ref-manager="Datamate.up">Datamate.up(_steps=1)</li>
+          <li data-ref-manager="Datamate.down">Datamate.down(_steps=1)</li>
+          <li data-ref-manager="Datamate.play">Datamate.play(_playRate=1.0)</li>
+
+          <h3>Area controls</h3>
+          <li data-ref-manager="Datamate.makeAreas">Datamate.makeAreas(_x, _y, _width, _height, _xBlocks, _yBlocks)</li>
+          <li data-ref-manager="Datamate.bindAreas">Datamate.bindAreas(_indexes)</li>
+          <li data-ref-manager="Datamate.area">Datamate.area(_index)</li>
+          <li data-ref-manager="datamateArea.x">area.x</li>
+          <li data-ref-manager="datamateArea.y">area.y</li>
+          <li data-ref-manager="datamateArea.width">area.width</li>
+          <li data-ref-manager="datamateArea.height">area.height</li>
+          <li data-ref-manager="datamateArea.left">area.left</li>
+          <li data-ref-manager="datamateArea.right">area.right</li>
+          <li data-ref-manager="datamateArea.top">area.top</li>
+          <li data-ref-manager="datamateArea.bottom">area.bottom</li>
+          <li data-ref-manager="datamateArea.centerX">area.centerX</li>
+          <li data-ref-manager="datamateArea.centerY">area.centerY</li>
+
+          <!-- <h3>Table controls</h3>
+          <li data-ref-manager="datamateArea.setHeaderEnables">Datamate.setHeaderEnables(_rowHeaderEnable=true, _colHeaderEnable=true)</li>
+          <li data-ref-manager="datamateArea.transpose">Datamate.transpose()</li> -->
+      </ul>
+<!-- 
+      <h3>Middle Level</h3>
+      <ul>
+          <h3>Node controls</h3>
+          <li>Datamate.makeNodes(_count)</li>
+          <li>Datamate.node(_index)</li>
+          <li>node.x</li>
+          <li>node.y</li>
+          <li>node.z</li>
+          <li>node.r</li>
+          <li>node.vx</li>
+          <li>node.vy</li>
+          <li>node.vz</li>
+          <li>node.vr</li>
+          <li>node.mass</li>
+          <li>node.friction</li>
+          <li>node.color</li>
+          <li>node.alpha</li>
+          <li>node.reset(_func)</li>
+          <li>node.update(_func)</li>
+          <li>node.addForce(_fx, _fy)</li>
+          <li>node.addAccel(_ax, _ay)</li>
+          <li>node.addEngine(_engine)</li>
+          <li>node.addField(_field)</li>
+          <li>node.setArea(_area)</li>
+      </ul>
+
+      <h3>Professional (Uppercase: Class, Lowercase: Instance)</h3>
+      <ul>
+          <h3>Datamate Class</h3>
+          <h3>method</h3>
+          <li>Datamate.sharedInstance()</li>
+          <li>datamate.constructor()</li>
+          <li>datamate.make(_rowKey, _values)</li>
+          <li>datamate.makeRow(_rowKey, _values)</li>
+          <li>datamate.makeColumn(_columnKey, _values)</li>
+          <li>datamate.setValue(_rowKey, _columnKey, _value)</li>
+          <li>datamate.value(_rowKey, _columnKey, _min=0, _max=0, _parameter=Datamate.ROW)</li>
+          <li>datamate.row(_rowKey)</li>
+          <li>datamate.column(_columnKey)</li>
+          <li>datamate.rowAtIndex(_index)</li>
+          <li>datamate.rowAtDataIndex(_index)</li>
+          <li>datamate.columnAtIndex(_index)</li>
+          <li>datamate.columnAtDataIndex(_index)</li>
+          <li>datamate.show()</li>
+          <li>datamate.hide()</li>
+          <li>datamate.open()</li>
+          <li>datamate.close()</li>
+
+          <h3>property</h3>
+          <li>datamate.table</li>
+          <li>datamate.plotter</li>
+
+          <h3>DatamateTable Class</h3>
+          <h3>method</h3>
+          <li>DatamateTable.constructor()</li>
+          <li>datamateTable.loader()</li>
+          <li>datamateTable.parse()</li>
+          <li>datamateTable.merge()</li>
+          <li>datamateTable.copy()</li>
+      </ul> -->
+		</section>
+	</main>
+
+	<!--------------------------------------------->
+	<!-- Sample Viewer -->
+	<!--------------------------------------------->
+	<section id="sample-viewer">
+		<div id="overlay"></div>
+		<iframe id="preview"></iframe>
+		<pre id="code"><code class="language-javascript"></code></pre>
+		<div id="switcher">CODE</div>
+	</section>
+
+
+	<!--------------------------------------------->
+	<!-- Reference Viewer -->
+	<!--------------------------------------------->
+  <section id="reference-viewer" data-sampleviewer="tutorials/sample-entry-1.html">
+    <article>
+      <h2>Datamate.make()</h2>
+      <table id="reference-table">
+          <tr><td>説明</td><td>Showing built-in bar chart.</td></tr>
+          <tr><td>function</td><td>Datamate.make()</td></tr>
+          <tr><td>引数</td><td>-</td></tr>
+          <tr><td>戻り値</td><td>-</td></tr>
+      </table>
+      <br>
+      <!-- <p>- Datamate.make('名前', データ)は、指定した名前でデータを作成します。<br>- Datamate.plot()は、表を表示します。<br>- 表はshift + Pでいつでも表示できます。</p> -->
+      <!-- <div><a data-sampleviewer-button>example</a></div>
+      <pre><code class="language-javascript"></code></pre> -->
+    </article>
+  </section>
+
+	<footer></footer>
+
+	<!-- <script src="prism/prism.js"></script> -->
+</body>
+</html>

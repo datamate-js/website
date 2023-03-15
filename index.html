@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="keyword" content="">
+	<meta name="description" content="">
+	<meta name="copyright" content="">
+	<title>Datamate.js</title>
+	<link rel="stylesheet" href="https://use.typekit.net/jqe1ksn.css">
+	<link href="index.css?1.2.6a3" rel="stylesheet" type="text/css">
+	<link href="prism/prism.css" rel="stylesheet" type="text/css">
+	<script src="js/p5.min.js"></script>
+	<script src="js/Datamate.js"></script>
+	<script src="js/MUAutoScroll.js"></script>
+	<script src="js/MUListDrawer.js"></script>
+	<script src="js/SampleManager.js"></script>
+	<script src="js/index.js"></script>
+	<script>
+		(function(d) {
+		  var config = {
+			kitId: 'gdc6iwd',
+			scriptTimeout: 3000,
+			async: true
+		  },
+		  h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+		})(document);
+	  </script>
+	<!-- <script src="prism/prism.js"></script> -->
+</head>
+
+<body>
+	<!--------------------------------------------------->
+	<!-- Header -->
+	<!--------------------------------------------------->
+	<header>
+		<h1><a href="./"><img src="images/rogo.png"></a></h1>
+	</header>
+
+	<!--------------------------------------------------->
+	<!-- Navigation (left contents) -->
+	<!--------------------------------------------------->
+	<nav>
+		<h3 id="nav-tutorial"><a href="index.html">tutorial</a></h3>
+		<h3 id="nav-download"><a href="download.html">download</a></h3>
+		<h3 id="nav-reference"><a href="reference.html">reference</a></h3>
+		<h3 id="nav-samples"><a href="samples.html">visualization samples</a></h3>
+		<!-- <ul id='index-multiple'>
+			<li><a href='#multiple-1' data-mu-autoscroll='{"duration":0.3, "offset":-10}'>1. データをつくる</a></li>
+			<li><a href='#multiple-2' data-mu-autoscroll='{"duration":0.3, "offset":-10}'>2. データを確認する</a></li>
+			<li><a href='#multiple-3' data-mu-autoscroll='{"duration":0.3, "offset":-10}'>3. データをグラフィックに反映させる</a></li>
+			<li><a href='#multiple-4' data-mu-autoscroll='{"duration":0.3, "offset":-10}'>4. データを時間で切り換える</a></li>
+			<li><a href='#multiple-5' data-mu-autoscroll='{"duration":0.3, "offset":-10}'>5. 自分で工夫する</a></li>
+		</ul> -->
+	</nav>
+
+	<!--------------------------------------------------->
+	<!-- Main (right contents) -->
+	<!--------------------------------------------------->
+	<main>
+		<!--------------------------------------------->
+		<!-- Single data Samples -->
+		<!--------------------------------------------->
+		<h2>tutorial</h2>
+		<section id="tutorial">
+			<article>
+				<h3>0. &lt;head&gt;タグに以下を追加する。 </h3>
+				<pre><code class="language-html">
+&lt;script src="https://cdn.jsdelivr.net/gh/mashimolab/test@5bda4b0f00681db2067fe0e7671a8dda725a956f/Datamate.js"&gt;&lt;/script&gt;
+				</code></pre>
+			</article>
+
+			<article data-sampleviewer="tutorials/sample-entry-1.html">
+				<h3><a class="button" data-sampleviewer-button>RUN</a> 1. データを表示する</h3>
+				<!-- <p>- Datamate.make('名前', データ)は、指定した名前でデータを作成します。<br>- Datamate.plot()は、表を表示します。<br>- 表はshift + Pでいつでも表示できます。</p> -->
+				<pre><code class="language-javascript"></code></pre>
+			</article>
+			<article data-sampleviewer="tutorials/sample-entry-2.html">
+				<h3><a class="button" data-sampleviewer-button>RUN</a> 2. データをグラフィクスに反映させる</h3>
+				<!-- <p>- Datamate.value('名前', 番号)は、名前のデータの指定番号の値を取得します。</p> -->
+				<pre><code class="language-javascript"></code></pre>
+			</article>
+
+			<article data-sampleviewer="tutorials/sample-entry-3.html">
+				<h3><a class="button" data-sampleviewer-button>RUN</a> 3. データを切り替える（←→キーでデータ切り替え、スペースキーで自動再生）</h3>
+				<!-- <p>- Datamate.focusXは現在のフォーカス位置の番号を取得します。<br>- Datamate.right()は、フォーカス位置を次の番号に移動させます。<br>- Datamate.left()は、フォーカス位置を前の番号に移動させます。</p> -->
+				<pre><code class="language-javascript"></code></pre>
+			</article>
+			<article data-sampleviewer="tutorials/sample-entry-4.html">
+				<h3><a class="button" data-sampleviewer-button>RUN</a> 4. データを並べて表示する</h3>
+				<!-- <p>- Datamate.focusXは現在のフォーカス位置の番号を取得します。<br>- Datamate.right()は、フォーカス位置を次の番号に移動させます。<br>- Datamate.left()は、フォーカス位置を前の番号に移動させます。</p> -->
+				<pre><code class="language-javascript"></code></pre>
+			</article>
+		</section>
+	</main>
+
+	<!--------------------------------------------->
+	<!-- Sample Viewer -->
+	<!--------------------------------------------->
+	<section id="sample-viewer">
+		<div id="overlay"></div>
+		<iframe id="preview"></iframe>
+		<pre id="code"><code class="language-javascript"></code></pre>
+		<div id="switcher">CODE</div>
+	</section>
+
+	<footer></footer>
+
+	<!-- <script src="prism/prism.js"></script> -->
+</body>
+</html>

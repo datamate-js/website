@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='UTF-8'>
+	<meta name='viewport' content='width=device-width'>
+	<title>Datamate.js</title>
+	<script src='../js/p5.min.js'></script>
+	<script src='../js/Datamate.js'></script>
+</head>
+
+<body>
+<script id="code">
+
+let colors = ["#002B5B","#2B4865", "#256D85", "#8FE3CF"];
+
+function setup()
+{
+	createCanvas(windowWidth, windowHeight);
+    Datamate.make('日付', ['2021/1','2021/2','2021/3','2021/4','2021/5','2021/6','2021/7','2021/8','2021/9','2021/10','2021/11','2021/12']);
+	Datamate.make('京都の降水量', [55.5,54.0,143.0,202.0,228.5,128.0,390.0,468.5,179.5,41.0,67.5,76.5]);
+	Datamate.makeAreas(0, 0, windowWidth, windowHeight, 4, 3);
+}
+
+function draw()
+{
+	background(255);
+
+	for (let index=0; index<12; index++) {
+
+		let area = Datamate.area(index);
+		let date = Datamate.value('日付', index);
+		let value = Datamate.value('京都の降水量', index);
+		let size = Datamate.value('京都の降水量', index, 5, 20);
+		let count = Datamate.value('京都の降水量', index, 10, 100);
+		
+		// Color and Alpha //
+		let colorValue = color(random(colors));
+		colorValue.setAlpha(alpha);
+
+		// Draw //
+		fill(colorValue);
+		for (let i=0; i<count; i++) {
+			let x = random(area.left, area.right);
+			let y = random(area.top, area.bottom);
+			circle(x, y, size);
+		}
+
+		fill(0);
+		text('京都の降水量\n' + date + '\n' + value.toFixed(2), area.left + 20, area.top + 30);
+	}
+}
+</script>
+</body>
+</html>

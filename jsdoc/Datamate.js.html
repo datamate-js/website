@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Datamate.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Datamate.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+*
+*	Datamate
+*	2021 scripted by t.mashimo
+*	This is main class and also the entrypoint for webpack.
+*
+*/
+
+// Import core //
+import DatamateFileLoader from "./core/DatamateFileLoader.js";
+import DatamateTable from "./core/DatamateTable.js";
+import DatamateTransition from "./core/DatamateTransition.js";
+import DatamateArea from "./core/DatamateArea.js";
+
+// Import ui //
+import DatamatePanel from "./ui/DatamatePanel.js";
+import DatamatePlotter from "./ui/DatamatePlotter.js";
+
+// Import utils //
+import DatamateMapper from "./utils/DatamateMapper.js";
+
+/**
+*
+*	@module Datamate
+*
+*/
+export default class Datamate
+{
+	//-------------------------------------------------------------------------//
+	// Static controls
+	//-------------------------------------------------------------------------//
+	static version = "1.0.3";
+	static COLUMN = "COLUMN";
+	static ROW = "ROW";
+	static ALL = "ALL";
+
+	// Private shared instance. it can be accessed via sharedInstance() method //
+	// The instance will instantiate when the first access to the method. //
+	static #sharedInstance = null;
+
+	/**
+	 * Return Datamate singleton instance.
+	 * @return {Datamate} return Datamate singleton instance.
+	 */
+	static sharedInstance()
+	{
+		if (Datamate.#sharedInstance==null)
+			Datamate.#sharedInstance = new Datamate();
+		return Datamate.#sharedInstance;
+	}
+
+	/**
+	 * Return the datamate dataset is avilable or not.
+	 * @return {boolean} return loading data is availabe or not. If true, data is available.
+	 */
+	static get isAvailable()
+	{
+		const datamate = Datamate.sharedInstance();
+		return datamate.isAvailable;
+	}
+
+	//-------------------------------------------------------------------------//
+	// Title controls
+	//-------------------------------------------------------------------------//
+	/**
+	 * Set the title of the dataset.
+	 * @param {String} _title the title of the dataset.
+	 */
+	static set title(_title)
+	{
+		const datamate = Datamate.sharedInstance();
+		datamate.title = _title;
+	}
+
+	/**
+	 * Return title.
+	 * @return {String} The string of current title.
+	 */
+	static get title()
+	{
+		const datamate = Datamate.sharedInstance();
+		return datamate.title;
+	}
+
+	//-------------------------------------------------------------------------//
+	// Area controls
+	//-------------------------------------------------------------------------//
+	/**
+	* Initialize DatamateArea following with given parameters.
+	* DatamateArea object makes rectangle areas the number of given xy blocks.
+	* We can bind a DatamateArea to each column with bindArea() method.
+	* We can extract a DatamateArea that is binded to a column with area() method.
+	* DatamateArea has a information of positions related to the arranged rectangle area
+	* such as x, y, width, height, left, right, top, bottom, centerX and centerY.
+	* When we use them as the origin of related position,
+	* it is easy to reuse the same positioning program just change some variables..
+	* @param {Number} _x The left position of whole area rectangle.
+	* @param {Number} _y The top position of whole area rectangle.
+	* @param {Number} _width The width of the size of whole area rectangle.
+	* @param {Number} _height The height of the size of whole area rectangle.
+	// * @param {Number} _xArea The number of blocks to be divided horizontally.
+	* @param {Number} _yArea The number of blocks to be divided vertically.
+	*/
+	static makeArea(_x, _y, _width, _height, _xArea=1, _yArea=1)
+	{
+		const datamate = Datamate.sharedInstance();
+		datamate.makeArea(_x, _y, _width, _height, _xArea, _yArea);
+	}
+
+	/**
+	* Bind a divided area to a column that has given name.
+	* @param {String|Number} _columnName The name of column to be binded to a block.
+	* @param {Number} _xBlockIndex The index of the block horizontally to be binded.
+	* @param {Number} _yBlockIndex The index of the block vertically to be binded.
+	*/
+	static bindArea(_columnName, _xBlockIndex=0, _yBlockIndex=0)
+	{
+		const datamate = Datamate.sharedInstance();
+		datamate.bindArea(_columnName, _xBlockIndex, _yBlockIndex);
+	}
+
+	/**
+	* Bind a divided area to a column that has given name.
+	* @param {Array} _columnNames The names of columns, or indices of columns to be binded to a block.
+	*/
+	static bindAreas(_columnNames)
+	{
+		const datamate = Datamate.sharedInstance();
+		datamate.bindAreas(_columnNames);
+	}
+
+	/**
+	* Extract an area of the column of given name.
+	* @param {String|Number} _columnName column name.
+	* @return {DatamateArea} An area object including x, y, width, height, left, right, top, bottom, centerX and centerY.
+	*/
+	static area(_columnName)
+	{
+		const datamate = Datamate.sharedInstance();
+		return datamate.area(_columnName);
+	}
+
+	//-------------------------------------------------------------------------//
+	// Node controls
+	//-------------------------------------------------------------------------//
+	/**
+	 * Return node in given column and row name.
+	 * @param {String|Number} _columnName column name .
+	 * @param {Array} _rowName row name.
+	 * @return {DatamateNode} a node of given column-row position. If the column-row does not exist, return null.
+	 */
+	static node(_columnName, _rowName)
+	{
+		const datamate = Datamate.sharedInstance();
+		return datamate.getNode(_columnName, _rowName);
+	}
+
+	//-------------------------------------------------------------------------//
+	// dataset controls
+	//-------------------------------------------------------------------------//
+	/**
+	 * Make a new column and values set, or load dataset from the file in given file path.
+	 * When we set the column name to _param and set the values array to _values. The make new or reset values in the column.
+	 * When we set a file path to _param and set null to _values, start to load and parse the file as the dataset immediately.
+	 * In column make mode and if given columnName does not exist, a new column will be created and set given values in it.
+	 * If given columnName exists, the exsist values will be overwritten as given new values.
+	 * @param {String|Number} _param column name to be set, or related file path to be loaded..
+	 * @param {Array} _values values as an Array to be set.
+	 */
+	static setValues(_param, _values=null)
+	{
+		const datamate = Datamate.sharedInstance();
+		(_values===null) ? datamate.load(_param) : datamate.setValues(_param, _values);
+	}
+
+	// It is the same of setValues //
+	static make(_param, _values=null)
+	{
+		const datamate = Datamate.sharedInstance();
+		(_values===null) ? datamate.load(_param) : datamate.setValues(_param, _values);
+	}
+
+	/**
+	 * Return a value of given column-row.
+	 * If the _tmin, _tmax parameters, the return value will be mapped in range of the minimum/maximum value of the column to given _tmin/_tmax range.
+	 * @param {String|Number} _columnName column name.
+	 * @param {String|Number} _rowName row name.
+	 * @param {Number} _tmin the minimum value after mapped.
+	 * @param {Number} _tmax the maximum value after mapped.
+	 * @return {Number} the raw value of mapped value. If given column-row does not exist, return undefined.
+	 */
+	static value(_columnName=null, _rowName=null, _tmin=0, _tmax=0)
+	{
+		if (_columnName===null &amp;&amp; _rowName===null)
+			return undefined;
+		const datamate = Datamate.sharedInstance();
+		return datamate.getValue(_columnName, _rowName, _tmin, _tmax);
+	}
+
+	/**
+	 * Return the rate at the value of given column-row in all rows.
+	 * If the _tmin, _tmax parameters, the return value will be mapped from rate to given _tmin/_tmax range.
+	 * @param {String|Number} _columnName column name.
+	 * @param {String|Number} _rowName row name.
+	 * @param {Number} _tmin the minimum value after mapped.
+	 * @param {Number} _tmax the maximum value after mapped.
+	 * @param {String} _order row name.
+	 * @return {Number} the raw value of mapped value. If given column-row does not exist, return undefined.
+	 */
+	static rate(_columnName=null, _rowName=null, _tmin=0, _tmax=1, _order=Datamate.COLUMN)
+	{
+		if (_columnName===null &amp;&amp; _rowName===null)
+			return undefined;
+		const datamate = Datamate.sharedInstance();
+		return datamate.getRate(_columnName, _rowName, _tmin, _tmax, _order);
+	}
+
+	/**
+	 * Make new columns with header.
+	 * @param {Array} _columnNames column names to be set as header.
+	 */
+	static setHeaders(_columnNames)
+	{
+		const datamate = Datamate.sharedInstance();
+		datamate.setHeaders(_columnNames);
+	}
+	/**
+	 * Get value at column of given name and row at given index.
+	 * If _tmin and _tmax is set, the value will be mapped in range of column minimum and maximum to given range.
+	 * @param {String|Number} _columnName column name of interest data.
+	 * @param {String|Number} _index row name of interest data.
+	 * @param {Number} _tmin target minimum value when obtained value is mapped.
+	 * @param {Number} _tmax target maximum value when obtained value is mapped.
+	 * @return {Number|String} return raw value or mapped value. If column-row is not found, return undefined.
+	 */
+	static getValue(_columnName=null, _rowName=null, _tmin=0, _tmax=0, _useInteger=false)
+	{
+		if (_columnName===null &amp;&amp; _rowName===null)
+			return undefined;
+		const datamate = Datamate.sharedInstance();
+		return datamate.getValue(_columnName, _index, _tmin, _tmax);
+	}
+
+	/**
+	 * Get DatamateData at given column-row.
+	 * @param {String|Number} _columnName column name.
+	 * @param {String|Number} _rowName row name.
+	 * @return {DatamateData} return DatamateData. If column-row is not found, return null.
+	 */
+	static getData(_columnName=null, _rowName=null)
+	{
+		if (_columnName===null &amp;&amp; _rowName===null)
+			return null;
+		const datamate = Datamate.sharedInstance();
+		return datamate.getData(_columnName, _rowName);
+	}
+
+	/**
+	 * Get DatamateNode at given column-row.
+	 * @param {String|Number} _columnName column name.
+	 * @param {String|Number} _rowName row name.
+	 * @return {DatamateNode} return DatamateNode. If given column-row is not found, return null.
+	 */
+	static getNode(_columnName=null, _rowName=null)
+	{
+		const datamate = Datamate.sharedInstance();
+		return datamate.getNode(_columnName, _rowName);
+	}
+
+	/**
+	 * Show a default plotter UI on browser screen.
+	 */
+	static plot()
+	{
+		const datamate = Datamate.sharedInstance();
+		datamate.showPanel();
+	}
+
+
+	/**
+	 * Add file path to be loaded as multiple.
+	 * @param {String} _filepath Related path to be loaded.
+	 */
+	static addFile(_filepath)
+	{
+		const datamate = Datamate.sharedInstance();
+		datamate.addFile(_filepath);
+	}
+
+	/**
+	 * Start loading
+	 * @param {Array} _data Add prefer dataset as enumrate values, or an array.
+	 */
+	static load(_filePath)
+	{
+		const datamate = Datamate.sharedInstance();
+		datamate.load(_filePath);
+	}
+
+	static set ready(_function)
+	{
+		const datamate = Datamate.sharedInstance();
+		datamate.callback = _function;
+	}
+
+	/**
+	 * Map given value from given column minimu/maximum to _tmin/_tmax range.
+	 * @param {Number} _value the value to be mapped.
+	 * @param {Number} _tmin the minimum value after mapped.
+	 * @param {Number} _tmax the maximum value after mapped.
+	 * @param {Number} _columnName Column name of source of mapping.
+	 * @return {Number} mapped value. If column name is not found, return value not mapped.
+	 */
+	static map(_value, _tmin, _tmax, _columnHeader)
+	{
+		const datamate = Datamate.sharedInstance();
+		return datamate.map(_value, _tmin, _tmax, _columnHeader)
+	}
+
+	/**
+	 * The minimum value in all dataset.
+	 * @return {Number} The minimum value in all dataset.
+	 */
+	static get min()
+	{
+		const datamate = Datamate.sharedInstance();
+		return datamate.min;
+	}
+
+	/**
+	 * The maximum value in all dataset.
+	 * @return {Number} The maximum value in all dataset.
+	 */
+	static get max()
+	{
+		const datamate = Datamate.sharedInstance();
+		return datamate.max;
+	}
+
+	/**
+	 * The length of rows in all dataset.
+	 * @return {Number} The length in all dataset.
+	 */
+	static get length()
+	{
+		const datamate = Datamate.sharedInstance();
+		return datamate.length;
+	}
+
+	/**
+	 * The length of rows in all dataset.
+	 * @return {Number} The length in all dataset.
+	 */
+	static column(_name)
+	{
+		const datamate = Datamate.sharedInstance();
+		return datamate.getColumn(_name);
+	}
+
+	/**
+	 * The length of rows in all dataset.
+	 * @return {Number} The length in all dataset.
+	 */
+	static columnAtIndex(_index)
+	{
+		const datamate = Datamate.sharedInstance();
+		return datamate.getColumnAtIndex(_index);
+	}
+
+	/**
+	 * The length of rows in all dataset.
+	 * @return {Number} The length in all dataset.
+	 */
+	static row(_name)
+	{
+		const datamate = Datamate.sharedInstance();
+		return datamate.getRow(_name);
+	}
+
+	/**
+	 * The length of rows in all dataset.
+	 * @return {Number} The length in all dataset.
+	 */
+	static rowAtIndex(_index)
+	{
+		const datamate = Datamate.sharedInstance();
+		return datamate.getRowAtIndex(_index);
+	}
+
+	//-------------------------------------------------------------------------//
+	// transition controls
+	//-------------------------------------------------------------------------//
+	/**
+	 * Start row transition with given framerate.
+	 * @param {Number} _frameRate Framerate for transition.
+	 */
+	static play(_frameRate=1.0)
+	{
+		const datamate = Datamate.sharedInstance();
+		datamate.play(_frameRate);
+	}
+
+	/**
+	 * Stop transition.
+	 */
+	static stop()
+	{
+		const datamate = Datamate.sharedInstance();
+		datamate.stop();
+	}
+
+	/**
+	 * Return current value of given column name in transtion.
+	 * If _interporation is true, return value interpolated between current and the next.
+	 * If _tmin and _tmax is set, the value will be mapped from column minimum/maximum value to given _tmin/_tmax.
+	 * @param {String|Number} _columnName Column name.
+	 * @param {Boolean} _interporation Interpolation enabled. if true, applying interpolation.
+	 * @param {Number} _tmin the minimum value after mapped.
+	 * @param {Number} _tmax the maximum value after mapped.
+	 * @return {Number} current value in transition. If columnName is not found, return undefined.
+	 */
+	 static current(_columnName, _interporation=false, _tmin=0, _tmax=0)
+	 {
+		const datamate = Datamate.sharedInstance();
+		return datamate.current(_columnName, _interporation, _tmin, _tmax);
+	 }
+
+	 /**
+	 * Return current row index in transtion.
+	 * @return current row index.
+	 */
+	 static currentIndex()
+	 {
+		const datamate = Datamate.sharedInstance();
+		return datamate.currentIndex();
+	 }
+
+
+	//-------------------------------------------------------------------------//
+	// Instance constructor
+	//-------------------------------------------------------------------------//
+	constructor()
+	{
+		// Show version in console //
+		console.log("Datamate.js: versoion:", Datamate.version);
+
+		// Prepare file loader for loading files. //
+		this.fileLoader = new DatamateFileLoader();
+		this.fileLoader.callback = this.fileLoaderCallback;
+
+		// ver1.1.1, storing common block property //
+		this.commonArea = new DatamateArea();
+
+		// Prepare table for storing loaded data as table. //
+		this.table = null;
+
+		// Availble //
+		this.isAvailable = false;
+
+		this.plotterRange = [0, 100];
+
+		// ver1.1.1, title //
+		this.title = "Datamate.";
+
+		this.panel = new DatamatePanel();
+		this.panel.fileSelectionCallback = this.fileSelectionCallback.bind(this);
+
+		// Transition //
+		this.transition = new DatamateTransition();
+	}
+
+	//-------------------------------------------------------------------------//
+	// Area controls
+	//-------------------------------------------------------------------------//
+	makeArea(_x, _y, _width, _height, _xArea=1, _yArea=1)
+	{
+		this.commonArea = new DatamateArea(_x, _y, _width, _height, _xArea, _yArea);
+	}
+
+	bindArea(_columnName, _xBlockIndex=0, _yBlockIndex=0)
+	{
+		const column = this.table.getColumn(_columnName);
+		column.setArea(this.commonArea.block(_xBlockIndex, _yBlockIndex));
+	}
+
+	bindAreas(_columnNames)
+	{
+		let blockIndex = 0;
+		for (let i=0; i&lt;_columnNames.length; i++) {
+			let columnName = _columnNames[i];
+			let column = this.table.getColumn(columnName);
+			if (column===null)
+				column = this.table.getColumnAtIndex(columnName);
+			if (column===null)
+				continue;
+
+			//console.log('bindAreas', column, this.commonArea);
+			const xBlockIndex = Math.floor(blockIndex % this.commonArea.xBlocks);
+			const yBlockIndex = Math.floor(blockIndex / this.commonArea.xBlocks);
+			const area = this.commonArea.block(xBlockIndex, yBlockIndex);
+			column.setArea(area);
+			blockIndex++;
+		}
+	}
+
+	area(_columnName)
+	{
+		let column = this.table.getColumn(_columnName);
+		if (column===null &amp;&amp; !isNaN(Number(_columnName)))
+			column = this.table.getColumnAtIndex(Number(_columnName));
+		return (column!==null) ? column.area : null;
+	}
+
+	//-------------------------------------------------------------------------//
+	// UI controls
+	//-------------------------------------------------------------------------//
+	openPanel()
+	{
+		this.panel.min = this.plotterRange[0];
+		this.panel.max = this.plotterRange[1];
+		this.panel.scale = 1;
+		this.panel.load();
+	}
+
+	closePanel()
+	{
+		this.panel.unload();
+	}
+
+	showPanel()
+	{
+		this.panel.show();
+		if (this.table)
+			this.panel.updateTable(this.table);
+	}
+
+	hidePanel()
+	{
+		this.panel.show();
+	}
+
+	foreground(_value)
+	{
+		this.panel.styles["color"] = _value;
+	}
+
+	background(_value)
+	{
+		this.panel.styles["background"] = _value;
+	}
+
+	graphColors(_colors)
+	{
+		this.panel.graphColors = _colors;
+	}
+
+	range(_min, _max)
+	{
+		this.panel.min = _min;
+		this.panel.max = _max;
+	}
+
+	scalable(_min, _max)
+	{
+		this.panel.scalableMin = _min;
+		this.panel.scalableMax = _max;
+	}
+
+	//-------------------------------------------------------------------------//
+	// File controls
+	//-------------------------------------------------------------------------//
+	addFile(_filePath)
+	{
+		this.fileLoader.addFilePath(_filePath);
+	}
+
+	async load(_filePath=null, _hasColumnHeader=true, _hasRowHeader=false)
+	{
+		// If _filePath argument is set, add it to be loaded. //
+		if (_filePath!==null)
+			this.addFile(_filePath);
+
+		// Create a main table //
+		this.table = new DatamateTable(_hasRowHeader, _hasColumnHeader);
+		await this.fileLoader.load();
+		for (let i=0; i&lt;this.fileLoader.dataset.length; i++) {
+			const data = this.fileLoader.dataset[i];							// Extract CSV data
+			const subtable = new DatamateTable(_hasColumnHeader, _hasRowHeader);		// Make sub table for CSV
+			subtable.parseCSV(data);
+			this.table.merge(subtable);
+		}
+		console.log("done.", this.table);
+
+		// Set isAvailable for using data //
+		this.isAvailable = true;
+
+		this.panel.clearAll();
+		if (this.panel.isLoaded)
+			this.panel.updateTable(this.table);
+
+		// Call callback //
+		if (this.callback)
+			this.callback();
+	}
+
+	fileSelectionCallback(_filePaths)
+	{
+		this.fileLoader.clear();
+		for (let i=0; i&lt;_filePaths.length; i++)
+			this.fileLoader.addFilePath(_filePaths[i]);
+		this.load();
+	}
+
+	//-------------------------------------------------------------------------//
+	// Transition controls
+	//-------------------------------------------------------------------------//
+	play(_frameRate=1.0)
+	{
+		this.transition.start(_frameRate, this.table);
+	}
+
+	stop()
+	{
+		this.transition.stop();
+	}
+
+	current(_columnName, _interporation=false, _tmin=0, _tmax=0)
+	{
+		const column = this.table.getColumn(_columnName);
+		let value = (this.transition.isPlaying) ? this.transition.current(_columnName, _interporation) : this.table.getValue(_columnName, 0);
+		if (_tmin!=_tmax)
+			value = DatamateMapper.map(value, column.min, column.max, _tmin, _tmax);
+		return value;
+	}
+
+	currentIndex()
+	{
+		return this.transition.currentIndex();
+	}
+
+	//-------------------------------------------------------------------------//
+	// Data controls
+	//-------------------------------------------------------------------------//
+	map(_value, _tmin, _tmax, _columnHeader=null)
+	{
+		const column = this.table.getColumn(_columnHeader);
+		const min = (column!==null) ? column.min : this.min;
+		const max = (column!==null) ? column.max : this.max;
+		return DatamateMapper.map(_value, min, max, _tmin, _tmax);
+	}
+
+	get min()
+	{
+		return this.table.min;
+	}
+
+	get max()
+	{
+		return this.table.max;
+	}
+
+	get length()
+	{
+		return this.table.getRowCount();
+	}
+
+	setHeaders(_headerNames)
+	{
+		if (this.table==null)
+			this.table = new DatamateTable(true, false);
+		this.table.setHeaders(_headerNames);
+	}
+
+	setValues(_columnName, _values)
+	{
+		if (this.table==null)
+			this.table = new DatamateTable(true, false);
+		this.table.setValues(_columnName, _values);
+	}
+
+	getValue(_columnName, _rowName, _tmin=0, _tmax=0)
+	{
+		const data = this.table.getData(_columnName, _rowName);
+		if (data===null)
+			return undefined;
+
+		let value = data.value;
+		if (_tmin!=_tmax)
+			value = DatamateMapper.map(value, data.column.min, data.column.max, _tmin, _tmax);
+		return value;
+	}
+
+	getRate(_columnName, _rowName, _tmin=0, _tmax=0, _type=Datamate.COLUMN)
+	{
+		const data = this.table.getData(_columnName, _rowName);
+		if (data===null)
+			return undefined;
+
+		let value = (_type==Datamate.COLUMN) ? data.value / data.column.sum : data.value / data.row.sum;
+		if (_tmin!=_tmax)
+			value = DatamateMapper.map(value, 0, 1, _tmin, _tmax);
+		return value;
+	}
+
+	getData(_columnName, _rowName)
+	{
+		return this.table.getData(_columnName, _rowName);
+	}
+
+	//-------------------------------------------------------------------------//
+	// Node controls
+	//-------------------------------------------------------------------------//
+	width(_columnName)
+	{
+		const column = this.table.getColumn(_columnName);
+		return column.area().width;
+	}
+
+	height(_columnName)
+	{
+		const column = this.table.getColumn(_columnName);
+		return column.area().height;
+	}
+
+	center(_columnName)
+	{
+		const column = this.table.getColumn(_columnName);
+		const area = column.area();
+		const x = DatamateMapper.map(0.5, 0, 1, area.x, area.x + area.width);
+		const y = DatamateMapper.map(0.5, 0, 1, area.y, area.y + area.height);
+		return {x: x, y: y};
+	}
+
+	getNode(_columnName=null, _rowName=null)
+	{
+		return this.table.getNode(_columnName, _rowName);
+	}
+
+
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Datamate.html">Datamate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Apr 12 2022 00:39:02 GMT+0900 (日本標準時)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

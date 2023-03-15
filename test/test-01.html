@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='UTF-8'>
+	<meta name='viewport' content='width=device-width'>
+	<title>Datamate.js</title>
+	<script src='../js/p5.min.js'></script>
+	<script src='../js/Datamate.js'></script>
+</head>
+
+<body>
+<script>
+
+function setup()
+{
+	createCanvas(windowWidth, windowHeight);
+	Datamate.make("DeadlyAnimal.csv");
+	Datamate.makeArea(0, 0, width, height, 17, 1);
+	Datamate.bindAreas([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]);
+	//Datamate.play(60);
+}
+
+function draw()
+{
+	background(255);
+	drawData(0);
+}
+
+function drawData(_index)
+{
+	const area = Datamate.area(_index);
+	const name = Datamate.name(_index);
+	const value = Datamate.current(area.name);
+	const value2 = Datamate.value(area.name, _index);
+	console.log(area.name, ",", value, ",", value2);
+
+	fill(0,0,0);
+	text(value, area.x + 50, area.y + 70);
+	circle(area.centerX, area.centerY, value);
+}
+
+</script>
+</body>
+</html>

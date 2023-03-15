@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='UTF-8'>
+	<meta name='viewport' content='width=device-width'>
+	<title>Datamate.js</title>
+	<script src='../js/p5.min.js'></script>
+	<script src='../js/Datamate.js'></script>
+</head>
+
+<body>
+<script id="code">
+
+let colors = ["#002B5B","#2B4865", "#256D85", "#8FE3CF"];
+let rotation = 0;
+
+function setup()
+{
+	createCanvas(windowWidth, windowHeight);
+    Datamate.make('日付', ['2021/1','2021/2','2021/3','2021/4','2021/5','2021/6','2021/7','2021/8','2021/9','2021/10','2021/11','2021/12']);
+	Datamate.make('京都の降水量', [55.5,54.0,143.0,202.0,228.5,128.0,390.0,468.5,179.5,41.0,67.5,76.5]);
+}
+
+function draw()
+{
+	let index = Datamate.focusX();
+	let date = Datamate.value('日付', index);
+	let value = Datamate.value('京都の降水量', index);
+	let r = Datamate.value('京都の降水量', index, 100, 500);
+	let x = cos(radians(rotation)) * r + (windowWidth / 2.0);
+	let y = sin(radians(rotation)) * r + (windowHeight / 2.0);
+
+	let colorValue = color(random(colors));
+	colorValue.setAlpha(10);
+
+	stroke(colorValue);
+	line(x, y, random(0, windowWidth), random(0, windowHeight));
+	line(x, y, random(0, windowWidth), random(0, windowHeight));
+	line(x, y, random(0, windowWidth), random(0, windowHeight));
+	line(x, y, random(0, windowWidth), random(0, windowHeight));
+
+	noStroke();
+	fill(255);
+	rect(0, 0, 200, 100);
+	fill(0);
+	text('京都の降水量\n' + date + '\n' + value.toFixed(2) + "mm", 10, 30);
+
+	rotation += 2;
+}
+
+function keyReleased()
+{
+	if (key=='c') {
+		background(255);
+	}
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="keyword" content="">
+	<meta name="description" content="">
+	<meta name="copyright" content="">
+	<title>Datamate.js</title>
+	<link rel="stylesheet" href="https://use.typekit.net/jqe1ksn.css">
+	<link href="index.css?1.2.6a3" rel="stylesheet" type="text/css">
+	<link href="prism/prism.css" rel="stylesheet" type="text/css">
+	<script src="js/p5.min.js"></script>
+	<script src="js/Datamate.js"></script>
+	<script src="js/MUAutoScroll.js"></script>
+	<script src="js/MUListDrawer.js"></script>
+	<script src="js/SampleManager.js"></script>
+	<script src="js/index.js"></script>
+	<script>
+		(function(d) {
+		  var config = {
+			kitId: 'gdc6iwd',
+			scriptTimeout: 3000,
+			async: true
+		  },
+		  h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+		})(document);
+	  </script>
+</head>
+
+<body>
+	<!--------------------------------------------------->
+	<!-- Header -->
+	<!--------------------------------------------------->
+	<header>
+		<h1><a href="./"><img src="images/rogo.png"></a></h1>
+	</header>
+
+	<!--------------------------------------------------->
+	<!-- Navigation (left contents) -->
+	<!--------------------------------------------------->
+	<nav>
+		<h3 id="nav-tutorial"><a href="index.html">tutorial</a></h3>
+		<h3 id="nav-download"><a href="download.html">download</a></h3>
+		<h3 id="nav-reference"><a href="reference.html">reference</a></h3>
+		<h3 id="nav-samples"><a href="samples.html">visualization samples</a></h3>
+		<!-- <ul id='index-multiple'>
+			<li><a href='#multiple-1' data-mu-autoscroll='{"duration":0.3, "offset":-10}'>1. データをつくる</a></li>
+			<li><a href='#multiple-2' data-mu-autoscroll='{"duration":0.3, "offset":-10}'>2. データを確認する</a></li>
+			<li><a href='#multiple-3' data-mu-autoscroll='{"duration":0.3, "offset":-10}'>3. データをグラフィックに反映させる</a></li>
+			<li><a href='#multiple-4' data-mu-autoscroll='{"duration":0.3, "offset":-10}'>4. データを時間で切り換える</a></li>
+			<li><a href='#multiple-5' data-mu-autoscroll='{"duration":0.3, "offset":-10}'>5. 自分で工夫する</a></li>
+		</ul> -->
+	</nav>
+	
+	<!--------------------------------------------------->
+	<!-- Main (right contents) -->
+	<!--------------------------------------------------->
+	<main>
+		<!--------------------------------------------->
+		<!-- Single data Samples -->
+		<!--------------------------------------------->
+		<h2>download</h2>
+		<section id="download">
+			<article>
+				<h3>CDN <span style="display:inline-block; margin-left: 20px; opacity: 0.5; font-size: 0.8em;">– ver.<span class="version"></span>. lsat update: <span class="lastupdate"></span></span></h3>
+				<pre><code class="language-html">
+&lt;script src="https://cdn.jsdelivr.net/gh/mashimolab/test@5bda4b0f00681db2067fe0e7671a8dda725a956f/Datamate.js"&gt;&lt;/script&gt;
+				</code></pre>
+			</article>
+
+			<article>
+				<h3>Download <span style="display:inline-block; margin-left: 20px; opacity: 0.5; font-size: 0.8em;">– ver.<span class="version"></span>. lsat update: <span class="lastupdate"></span></span></h3>
+				<div class="button"><a href="js/Datamate.js" download>datamate.js ver.<span class="version"></span></a></div>
+			</article>
+		<section>
+	</main>
+
+	<!--------------------------------------------->
+	<!-- Sample Viewer -->
+	<!--------------------------------------------->
+	<section id="sample-viewer">
+		<div id="overlay"></div>
+		<iframe id="preview"></iframe>
+		<pre id="code"><code class="language-javascript"></code></pre>
+		<div id="switcher">CODE</div>
+	</section>
+
+
+	<footer></footer>
+
+	<!-- <script src="prism/prism.js"></script> -->
+</body>
+</html>
