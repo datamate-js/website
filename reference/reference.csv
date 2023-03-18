@@ -14,9 +14,7 @@ _parameter","String|Number
 String|Number
 Number
 Number
-Number","
-
-0
+Number","0
 0
 Datamate.ROW","行の名前またはインデックス
 列の名前またはインデックス
@@ -28,8 +26,10 @@ Minimum value for mapping.
 Maximum value for mapping.
 Parameter type for culclating mapping.",value,String|Number,"指定した行、列の値を取得します。_min, _max, _parameterを指定すると、行、列またはテーブル全体における最小値、最大値から、指定した最小値、最大値にマッピングした値を返します。値が数値ではない場合は、そのままの値を返します。_parameterはDatamate.ROW, Datamate.COLUMN, Datamate.TABLEから選択できます。デフォルトはDatamate.ROWです。
 
-_rowKey, _columnKeyには、行・列の名前またはデータ番号を指定できます。_rowKey, _columnKeyに小数点の値を与えた場合、値が数値の場合にはその間の補間されたデータが返されます。例えばvalue(0, 0.5)とした場合、0行目のデータで、0列目の値と1列目の値の中間値が返されます。
-","Return a value at given row and column names or indexes.  If _min, _max and _parameter is set, the value will be mapped from min/max values in range of row, column or table to in range of _min and _max. The value is not Number, return as remain. _parameter can be selected from Datamate.ROW, Datamate.COLUMN, Datamate.TABLE."
+_rowKey, _columnKeyには、行・列の名前またはデータ番号を指定できます。_rowKey, _columnKeyに小数点の値を与えた場合、値が数値の場合にはその間の補間されたデータが返されます。例えばvalue(0, 0.5)とした場合、0行目のデータで、0列目の値と1列目の値の中間値が返されます。","Return a value at given row and column names or indexes.  If _min, _max and _parameter is set, the value will be mapped from min/max values in range of row, column or table to in range of _min and _max. The value is not Number, return as remain. _parameter can be selected from Datamate.ROW, Datamate.COLUMN, Datamate.TABLE."
+Datamate.name,static,method,name,_index,Number,,行のインデックス,Row index of interset.,row name,,指定した行番号のヘッダ名を返します。,Return the name of given index of row.
+Datamate.rowName,static,method,rowName,_index,Number,,行のインデックス,Row index of interset.,row name,,指定した行番号のヘッダ名を返します。,Return the name of given index of row.
+Datamate.colName,static,method,columnName,_index,Number,,列のインデックス,Column index of interset.,column name,,指定した列番号のヘッダ名を返します。,Return the name of given index of column.
 Datamate.focusX,static,method,focusX,"_offset
 _interpolation","Number
 Boolean","0
