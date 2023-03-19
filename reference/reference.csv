@@ -1,11 +1,11 @@
-Object,type1,type2,name,args,arg-types,arg-defaults,arg-explanations,arg-explanations-en,return,return type,description,description-en
+Object,type1,type2,name,args,arg-types,arg-defaults,arg-explanations,arg-explanations-en,return,return-en,return type,description,description-en
 Datamate.make,static,method,make,"_rowKey
 _values","String
 Array","-
 -","追加する行の名前
 追加する値","The name of new row.
-Values for the new row.",,,新しいデータ行を作成します。_rowKeyには行の名前を指定します。_valuesには、その行に設定するデータを配列として設定します。,Create a new row with new values.
-Datamate.plot,static,method,plot,,,-,,,,,Datamateが提供するビルトインチャートを表示します。,Show built-in chart provided by Datamate.
+Values for the new row.",,,,新しい行を作成します。_rowKeyには作成する行の名前を指定します。_valuesには、作成する行のデータを配列として設定します。,Create a new row with new values.
+Datamate.plot,static,method,plot,,,-,,,,,,Datamateが提供するビルトインチャートを表示します。,Show built-in chart provided by Datamate.
 Datamate.value,static,method,value,"_rowKey
 _columnKey
 _min
@@ -18,78 +18,75 @@ Number","-
 -
 0
 0
-Datamate.COLUMN","行の名前またはインデックス
+Datamate.ROW","行の名前またはインデックス
 列の名前またはインデックス
 マッピングの最小値
 マッピングの最大値
-マッピング算出の対象","A name or an index for interest row,
+マッピングする対象","A name or an index for interest row,
 A name or an index for interest column.
 Minimum value for mapping.
 Maximum value for mapping.
-Target type for calculating mapping.",value,String|Number,"_rowKey, _columnKeyで指定した値を取得します。_rowKey, _columnKeyには、ヘッダ名またはデータ番号を指定できます。
+Target type for calculating mapping.","_rowKey, _columnKeyで指定したテーブル位置の値",Return a value at given _rowKey and _columnKey position in data table.,String|Number,"_rowKey, _columnKeyで指定したデータテーブルの値を取得します。
 
-_min, _maxを指定した場合、_targetで指定した対象の最小値、最大値を_min, _maxの値にマッピングした場合の値を返します。例えば_targetにDatamate.COLUMNを指定した場合（デフォルト）、同じカラムの最小値を_min、最大値を_maxとして、指定行列の値をマッピングした値を返します。
-
-_targetはDatamate.ROW（同じ行の最小値／最大値を使用する）, Datamate.COLUMN（同じ列の最小値／最大値を使用する）, Datamate.TABLE（テーブル全体の最小値／最大値を使用する）のいずれかを指定できます。値が数値ではない場合は、そのままの値を返します。
-
-_rowKey, _columnKeyに小数点の値を与えた場合、値が数値の場合にはその間の補間されたデータが返されます。例えばvalue(0, 0.5)とした場合、0行目のデータで、0列目の値と1列目の値の中間値が返されます。
+_rowKey, _columnKeyには、ヘッダ名またはデータ番号を指定できます。_min, _maxを指定した場合、_targetで指定した対象の最小値、最大値を_min, _maxの値にマッピングし、値を返します。例えば_targetにDatamate.ROWを指定した場合（デフォルト）、_rowKeyと同じ行内の値の最小値を_min、最大値を_maxとした場合のマッピングされた値を返します。_targetはDatamate.ROW（_rowKeyで指定した行の最小値／最大値を使用する）, Datamate.COLUMN（_columnKeyで指定した列の最小値／最大値を使用する）, Datamate.TABLE（テーブル全体の最小値／最大値を使用する）のいずれかを指定できます。値が数値ではない場合は、そのままの値を返します。
+_rowKey, _columnKeyにデータ番号として小数点の値を与えた場合、そのデータ番号間の値の補間されたデータが返されます。例えば let value = Datamate.value(0, 0.5);とした場合、valueには0行目にある0列目と1列目の値の中間値が返されます。
 ","Return a value at given row and column names or indexes.  If _min, _max and _parameter is set, the value will be mapped from min/max values in range of row, column or table to in range of _min and _max. The value is not Number, return as remain. _parameter can be selected from Datamate.ROW, Datamate.COLUMN, Datamate.TABLE."
 Datamate.name,static,method,name,"_index
 _target","Number
 Number","-
 Datamate.ROW","インデックス
 取得する対象","Row index of interset.
-Target of interest.",row name,String,_indexで指定した番号のヘッダ名を返します。_targetでヘッダを取得する対象（行: Datamate.ROWまたは列: Datamate.COLUMN）を指定します。デフォルトはDatamate.ROWです。,Return the name of given index of row. We can select the target for getting header name as Datamte.ROW or Datamte.COLUMN. Default is Datamate.ROW.
-Datamate.rowName,static,method,rowName,_index,Number,-,行のインデックス,Row index of interset.,row name,,指定した行番号のヘッダ名を返します。,Return the name of given index of row.
-Datamate.columnName,static,method,columnName,_index,Number,-,列のインデックス,Column index of interset.,column name,,指定した列番号のヘッダ名を返します。,Return the name of given index of column.
+Target of interest.",row name,row name,String,_indexで指定した番号のヘッダ名を返します。_targetでヘッダを取得する対象（行: Datamate.ROWまたは列: Datamate.COLUMN）を指定します。デフォルトはDatamate.ROWです。,Return the name of given index of row. We can select the target for getting header name as Datamte.ROW or Datamte.COLUMN. Default is Datamate.ROW.
+Datamate.rowName,static,method,rowName,_index,Number,-,行のインデックス,Row index of interset.,row name,row name,,指定した行番号のヘッダ名を返します。,Return the name of given index of row.
+Datamate.columnName,static,method,columnName,_index,Number,-,列のインデックス,Column index of interset.,column name,column name,,指定した列番号のヘッダ名を返します。,Return the name of given index of column.
 Datamate.focusX,static,method,focusX,"_offset
 _interpolation","Number
 Boolean","0
 false","フォーカス列からのオフセット
 補間の有効化","Offset from current focus column index
-Enable of interpolation",column index,Number,現在フォーカスしているデータ列の番号を返します。_offsetの値を設定すると、現在のフォーカス列からの相対位置の番号を返します。_interpolationをtrueにすると、現在のフォーカスが２つの列の間に位置する場合、小数点で返します。,
+Enable of interpolation",column index,column index,Number,現在フォーカスしているデータ列の番号を返します。_offsetの値を設定すると、現在のフォーカス列からの相対位置の番号を返します。_interpolationをtrueにすると、現在のフォーカスが２つの列の間に位置する場合、小数点で返します。,
 Datamate.focusY,static,method,focusY,"_offset
 _interpolation","Number
 Boolean","0
 false","フォーカス行からのオフセット
 補間の有効化","Offset from current focus row index
-Enable of interpolation",row index,Number,現在フォーカスしているデータ行の番号を返します。_offsetの値を設定すると、現在のフォーカス行からの相対位置の番号を返します。_interpolationをtrueにすると、現在のフォーカスが２つの列の間に位置する場合、小数点で返します。,
+Enable of interpolation",row index,row index,Number,現在フォーカスしているデータ行の番号を返します。_offsetの値を設定すると、現在のフォーカス行からの相対位置の番号を返します。_interpolationをtrueにすると、現在のフォーカスが２つの列の間に位置する場合、小数点で返します。,
 Datamate.right,static,method,right,"_steps
 _loop","Number
 Boolean","1
 false","移動する量
 ループの有効化","Amout of moving.
-Loop enable",,,フォーカス位置を_steps分だけ右へ移動させます。_stepsには小数値も指定できます。列の右端まで移動した場合、_loopがtrueであれば、左端へ移動します。,
+Loop enable",,,,フォーカス位置を_steps分だけ右へ移動させます。_stepsには小数値も指定できます。列の右端まで移動した場合、_loopがtrueであれば、左端へ移動します。,
 Datamate.left,static,method,left,"_steps
 _loop","Number
 Boolean","1
 false","移動する量
 ループの有効化","Amout of moving.
-Loop enable",,,フォーカス位置を_steps分だけ左へ移動させます。_stepsには小数値も指定できます。列の左端まで移動した場合、_loopがtrueであれば、右端へ移動します。,
+Loop enable",,,,フォーカス位置を_steps分だけ左へ移動させます。_stepsには小数値も指定できます。列の左端まで移動した場合、_loopがtrueであれば、右端へ移動します。,
 Datamate.up,static,method,up,"_steps
 _loop","Number
 Boolean","1
 false","移動する量
 ループの有効化","Amout of moving.
-Loop enable",,,フォーカス位置を_steps分だけ上へ移動させます。_stepsには小数値も指定できます。行の上端まで移動した場合、_loopがtrueであれば、下端へ移動します。,
+Loop enable",,,,フォーカス位置を_steps分だけ上へ移動させます。_stepsには小数値も指定できます。行の上端まで移動した場合、_loopがtrueであれば、下端へ移動します。,
 Datamate.down,static,method,down,"_steps
 _loop","Number
 Boolean","1
 false","移動する量
 ループの有効化","Amout of moving.
-Loop enable",,,フォーカス位置を_steps分だけ下へ移動させます。_stepsには小数値も指定できます。行の下端まで移動した場合、_loopがtrueであれば、上端へ移動します。,
+Loop enable",,,,フォーカス位置を_steps分だけ下へ移動させます。_stepsには小数値も指定できます。行の下端まで移動した場合、_loopがtrueであれば、上端へ移動します。,
 Datamate.play,static,method,play,"_playRateX
 _playRateY","Number
 Number","1.0
 0.0","横方向の再生速度（倍速）
 縦方向の再生速度（倍速）","Play rate for x direction
-Play rate for y direction",,,フォーカスを自動移動させます。再生レートは１秒間に移動させるセルの量で、デフォルトは１です（１秒間に１セル）。,
+Play rate for y direction",,,,フォーカスを自動移動させます。再生レートは１秒間に移動させるセルの量で、デフォルトは１です（１秒間に１セル）。,
 Datamate.loop,static,method,loop,"_loopX
 _loopY","Boolean
 Boolean","false
 false","横方向の再生ループ
 縦方向の再生ループ","Loop enabled for x direction
-Loop enabled for y direction",,,フォーカス再生時に、ループにするかどうかを指定します。trueに指定した場合、フォーカスが最後のセルに到達すると、先頭のセルに戻ります。,
+Loop enabled for y direction",,,,フォーカス移動時に、セルの端に到達した際にループにするかどうかを指定します。trueに指定した場合、フォーカスがセルの端に到達すると、逆側の端へセルを移動させます。,
 Datamate.makeAreas,static,method,makeAreas,"_x
 _y
 _width
@@ -110,16 +107,16 @@ Vertical position for entire area.
 Width for entire area.
 Height for entire area.
 The number of horizontal blocks in the area.
-The number of vertical blocks in the area.",,,分割エリアを作成します。,
-Datamate.bindAreas,static,method,bindAreas,_indexes,Array,-,割り当てる番号の配列,Array for remapping indexes.,,,分割エリアに対して、与えられた番号を割り当てます。area()関数で取得する際の番号と位置を変更したい場合に使用します。,
-Datamate.area,static,method,area,_index,Number,-,エリア番号,Index of area,area,DatamateArea,指定番号のエリア情報（DatamateArea）を取得します。,
-datamateArea.x,instance,property,x,,,-,,,x,Number,エリアのx座標を返します。,
-datamateArea.y,instance,property,y,,,-,,,y,Number,エリアのy座標を返します。,
-datamateArea.width,instance,property,width,,,-,,,width,Number,エリアの横幅を返します。,
-datamateArea.height,instance,property,height,,,-,,,height,Number,エリアの縦幅を返します。,
-datamateArea.centerX,instance,property,centerX,,,-,,,centerX,Number,エリアの中心のx座標を返します。,
-datamateArea.centerY,instance,property,centerY,,,-,,,centerY,Number,エリアの中心のy座標を返します。,
-datamateArea.left,instance,property,left,,,-,,,left,Number,エリアの左端の座標を返します。,
-datamateArea.right,instance,property,right,,,-,,,right,Number,エリアの右端の座標を返します。,
-datamateArea.top,instance,property,top,,,-,,,top,Number,エリアの上端の座標を返します。,
-datamateArea.bottom,instance,property,bottom,,,-,,,bottom,Number,エリアの下端の座標を返します。,
+The number of vertical blocks in the area.",,,,分割エリアを作成します。,
+Datamate.bindAreas,static,method,bindAreas,_indexes,Array,-,割り当てる番号の配列,Array for remapping indexes.,,,,分割エリアに対して、与えられた番号を割り当てます。area()関数で取得する際の番号と位置を変更したい場合に使用します。,
+Datamate.area,static,method,area,_index,Number,-,エリア番号,Index of area,area,area,DatamateArea,指定番号のエリア情報（DatamateArea）を取得します。,
+datamateArea.x,instance,property,x,,,-,,,x,x,Number,エリアのx座標を返します。,
+datamateArea.y,instance,property,y,,,-,,,y,y,Number,エリアのy座標を返します。,
+datamateArea.width,instance,property,width,,,-,,,width,width,Number,エリアの横幅を返します。,
+datamateArea.height,instance,property,height,,,-,,,height,height,Number,エリアの縦幅を返します。,
+datamateArea.centerX,instance,property,centerX,,,-,,,centerX,centerX,Number,エリアの中心のx座標を返します。,
+datamateArea.centerY,instance,property,centerY,,,-,,,centerY,centerY,Number,エリアの中心のy座標を返します。,
+datamateArea.left,instance,property,left,,,-,,,left,left,Number,エリアの左端の座標を返します。,
+datamateArea.right,instance,property,right,,,-,,,right,right,Number,エリアの右端の座標を返します。,
+datamateArea.top,instance,property,top,,,-,,,top,top,Number,エリアの上端の座標を返します。,
+datamateArea.bottom,instance,property,bottom,,,-,,,bottom,bottom,Number,エリアの下端の座標を返します。,

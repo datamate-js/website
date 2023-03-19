@@ -56,7 +56,7 @@ class ReferenceManager
             element.addEventListener('mousedown', function(_e) {
                 this.open(_e.currentTarget.row);
             }.bind(this));
-            console.log("ReferenceManager:", objectName, row);
+            //console.log("ReferenceManager:", objectName, row);
         }
     }
 
@@ -72,10 +72,10 @@ class ReferenceManager
 
         const type = this.csv.valueInRow(_row, "type2");
         const args = this.csv.valueInRow(_row, "args");
-        const argsA = args.split("  ");
-        const argsB = args.replace(/  /g, ", ");
-        const argexps = this.csv.valueInRow(_row, "arg-explanations").split("  ");
-        const defaults = this.csv.valueInRow(_row, "arg-defaults").split("  ");
+        const argsA = args.split("\n");
+        const argsB = args.replace(/\n/g, ", ");
+        const argexps = this.csv.valueInRow(_row, "arg-explanations").split("\n");
+        const defaults = this.csv.valueInRow(_row, "arg-defaults").split("\n");
         let argtexts = (argsA=="") ? "なし" : "";
         if (argsA!="") { 
             for (let i=0; i<argsA.length; i++) {
@@ -87,18 +87,19 @@ class ReferenceManager
                 argtexts += "<br>";
             }
         }
-        const desc = this.csv.valueInRow(_row, "description");
+        const desc = this.csv.valueInRow(_row, "description").replace(/\n/g, "<br>");
         const valReturn = this.csv.valueInRow(_row, "return");
+        const valReturnType = this.csv.valueInRow(_row, "return type");
 
         h2.innerHTML = this.csv.valueInRow(_row, "Object") + ((type=="method") ? `(${argsB})` : "");
         typeElement.innerHTML = (type=="method") ? "メソッド" : "プロパティ";
         funcElement.innerHTML = this.csv.valueInRow(_row, "Object") + ((type=="method") ? `(${argsB})` : "");
         argsElement.innerHTML = argtexts;
-        returnElement.innerHTML = (valReturn=="") ? "なし" : valReturn;
+        returnElement.innerHTML = (valReturn=="") ? "なし" :valReturn +  ": (" + valReturnType + ")";
         descElement.innerHTML = desc;
 
         this.viewer.style.opacity = 1.0;
-        console.log(_row);
+       //console.log(_row);
     }
 
     close()

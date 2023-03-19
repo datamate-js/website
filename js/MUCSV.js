@@ -16,8 +16,8 @@ class MUCSV
 		this.filePaths = [];
 		this.isAvailable = false;
 		this.callback = null;
-		this.comma = " ";
-		this.LF = "  ";
+		this.comma = "&TEXT_COMMA;";
+		this.LF = "&TEXT_LF;";
 	}
 
 	clear()
@@ -36,14 +36,16 @@ class MUCSV
 	valueInRow(_row, _colKey)
 	{
 		const index = (typeof(_colKey)=='string') ? this.indexOfColumn(_colKey) : _colKey;
-		return _row[index];
+		const value = _row[index].replace(/&TEXT_COMMA;/g, ",").replace(/&TEXT_LF;/g, "\n");
+		return value;
 
 	}
 
 	valueInColumn(_column, _rowKey)
 	{
 		const colIndex = (typeof(_rowKey)=='string') ? this.indexOfRow(_rowKey) : _rowKey;
-		return _column[colIndex];
+		const value = _column[colIndex].replace(/&TEXT_COMMA;/g, ",").replace(/&TEXT_LF;/g, "\n");
+		return valueZ;
 	}
 
 	indexOfRow(_rowKey)
