@@ -72,16 +72,17 @@ false","移動する量
 ループの有効化","Amout of moving.
 Loop enable",,,フォーカス位置を_steps分だけ下へ移動させます。_stepsには小数値も指定できます。行の下端まで移動した場合、_loopがtrueであれば、上端へ移動します。,
 Datamate.play,static,method,play,"_playRateX
-_playRateY
-_loop","Number
-Number
-Boolean","1.0
-0.0
-false","横方向の再生速度（倍速）
-縦方向の再生速度（倍速）
-ループの有効化","Play rate for x direction
-Play rate for y direction
-Loop enable",,,フォーカスを自動移動させます。再生レートは１秒間に移動させるセルの量で、デフォルトは１です（１秒間に１セル）。_loopがtrueであれば、セルの端に到達した場合に、最初に戻ります。,
+_playRateY","Number
+Number","1.0
+0.0","横方向の再生速度（倍速）
+縦方向の再生速度（倍速）","Play rate for x direction
+Play rate for y direction",,,フォーカスを自動移動させます。再生レートは１秒間に移動させるセルの量で、デフォルトは１です（１秒間に１セル）。,
+Datamate.loop,static,method,loop,"_loopX
+_loopY","Boolean
+Boolean","false
+false","横方向の再生ループ
+縦方向の再生ループ","Loop enabled for x direction
+Loop enabled for y direction",,,フォーカス再生時に、ループにするかどうかを指定します。trueに指定した場合、フォーカスが最後のセルに到達すると、先頭のセルに戻ります。,
 Datamate.makeAreas,static,method,makeAreas,"_x
 _y
 _width
