@@ -82,7 +82,7 @@ class ReferenceManager
                 argtexts += argsA[i];
                 argtexts += " : ";
                 argtexts += argexps[i];
-                if (i < defaults.length && defaults[i]!="")
+                if (i < defaults.length && defaults[i]!="" && defaults[i]!="-")
                     argtexts += '（省略可。デフォルトは' + defaults[i] + "）";
                 argtexts += "<br>";
             }

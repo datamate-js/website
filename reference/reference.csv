@@ -1,11 +1,11 @@
 Object,type1,type2,name,args,arg-types,arg-defaults,arg-explanations,arg-explanations-en,return,return type,description,description-en
 Datamate.make,static,method,make,"_rowKey
 _values","String
-Array","
-","追加する行の名前
+Array","-
+-","追加する行の名前
 追加する値","The name of new row.
 Values for the new row.",,,新しいデータ行を作成します。_rowKeyには行の名前を指定します。_valuesには、その行に設定するデータを配列として設定します。,Create a new row with new values.
-Datamate.plot,static,method,plot,,,,,,,,Datamateが提供するビルトインチャートを表示します。,Show built-in chart provided by Datamate.
+Datamate.plot,static,method,plot,,,-,,,,,Datamateが提供するビルトインチャートを表示します。,Show built-in chart provided by Datamate.
 Datamate.value,static,method,value,"_rowKey
 _columnKey
 _min
@@ -14,7 +14,9 @@ _target","String|Number
 String|Number
 Number
 Number
-Number","0
+Number","-
+-
+0
 0
 Datamate.COLUMN","行の名前またはインデックス
 列の名前またはインデックス
@@ -29,12 +31,12 @@ Parameter type for culclating mapping.",value,String|Number,"指定した行、�
 _rowKey, _columnKeyには、行・列の名前またはデータ番号を指定できます。_rowKey, _columnKeyに小数点の値を与えた場合、値が数値の場合にはその間の補間されたデータが返されます。例えばvalue(0, 0.5)とした場合、0行目のデータで、0列目の値と1列目の値の中間値が返されます。","Return a value at given row and column names or indexes.  If _min, _max and _parameter is set, the value will be mapped from min/max values in range of row, column or table to in range of _min and _max. The value is not Number, return as remain. _parameter can be selected from Datamate.ROW, Datamate.COLUMN, Datamate.TABLE."
 Datamate.name,static,method,name,"_index
 _target","Number
-Number","
+Number","-
 Datamate.ROW","インデックス
 取得する対象","Row index of interset.
 Target of interest.",row name,String,_indexで指定した番号のヘッダ名を返します。_targetでヘッダを取得する対象（行: Datamate.ROWまたは列: Datamate.COLUMN）を指定します。デフォルトはDatamate.ROWです。,Return the name of given index of row. We can select the target for getting header name as Datamte.ROW or Datamte.COLUMN. Default is Datamate.ROW.
-Datamate.rowName,static,method,rowName,_index,Number,,行のインデックス,Row index of interset.,row name,,指定した行番号のヘッダ名を返します。,Return the name of given index of row.
-Datamate.columnName,static,method,columnName,_index,Number,,列のインデックス,Column index of interset.,column name,,指定した列番号のヘッダ名を返します。,Return the name of given index of column.
+Datamate.rowName,static,method,rowName,_index,Number,-,行のインデックス,Row index of interset.,row name,,指定した行番号のヘッダ名を返します。,Return the name of given index of row.
+Datamate.columnName,static,method,columnName,_index,Number,-,列のインデックス,Column index of interset.,column name,,指定した列番号のヘッダ名を返します。,Return the name of given index of column.
 Datamate.focusX,static,method,focusX,"_offset
 _interpolation","Number
 Boolean","0
@@ -93,7 +95,7 @@ Number
 Number
 Number
 Number
-Number",,"エリア全体の横位置
+Number",-,"エリア全体の横位置
 エリア全体の縦位置
 エリア全体の横幅
 エリア全体の縦幅
@@ -104,15 +106,15 @@ Width for entire area.
 Height for entire area.
 The number of horizontal blocks in the area.
 The number of vertical blocks in the area.",,,分割エリアを作成します。,
-Datamate.bindAreas,static,method,bindAreas,_indexes,Array,,割り当てる番号の配列,Array for remapping indexes.,,,分割エリアに対して、与えられた番号を割り当てます。area()関数で取得する際の番号と位置を変更したい場合に使用します。,
-Datamate.area,static,method,area,_index,Number,,エリア番号,Index of area,area,DatamateArea,指定番号のエリア情報（DatamateArea）を取得します。,
-datamateArea.x,instance,property,x,,,,,,x,Number,エリアのx座標を返します。,
-datamateArea.y,instance,property,y,,,,,,y,Number,エリアのy座標を返します。,
-datamateArea.width,instance,property,width,,,,,,width,Number,エリアの横幅を返します。,
-datamateArea.height,instance,property,height,,,,,,height,Number,エリアの縦幅を返します。,
-datamateArea.centerX,instance,property,centerX,,,,,,centerX,Number,エリアの中心のx座標を返します。,
-datamateArea.centerY,instance,property,centerY,,,,,,centerY,Number,エリアの中心のy座標を返します。,
-datamateArea.left,instance,property,left,,,,,,left,Number,エリアの左端の座標を返します。,
-datamateArea.right,instance,property,right,,,,,,right,Number,エリアの右端の座標を返します。,
-datamateArea.top,instance,property,top,,,,,,top,Number,エリアの上端の座標を返します。,
-datamateArea.bottom,instance,property,bottom,,,,,,bottom,Number,エリアの下端の座標を返します。,
+Datamate.bindAreas,static,method,bindAreas,_indexes,Array,-,割り当てる番号の配列,Array for remapping indexes.,,,分割エリアに対して、与えられた番号を割り当てます。area()関数で取得する際の番号と位置を変更したい場合に使用します。,
+Datamate.area,static,method,area,_index,Number,-,エリア番号,Index of area,area,DatamateArea,指定番号のエリア情報（DatamateArea）を取得します。,
+datamateArea.x,instance,property,x,,,-,,,x,Number,エリアのx座標を返します。,
+datamateArea.y,instance,property,y,,,-,,,y,Number,エリアのy座標を返します。,
+datamateArea.width,instance,property,width,,,-,,,width,Number,エリアの横幅を返します。,
+datamateArea.height,instance,property,height,,,-,,,height,Number,エリアの縦幅を返します。,
+datamateArea.centerX,instance,property,centerX,,,-,,,centerX,Number,エリアの中心のx座標を返します。,
+datamateArea.centerY,instance,property,centerY,,,-,,,centerY,Number,エリアの中心のy座標を返します。,
+datamateArea.left,instance,property,left,,,-,,,left,Number,エリアの左端の座標を返します。,
+datamateArea.right,instance,property,right,,,-,,,right,Number,エリアの右端の座標を返します。,
+datamateArea.top,instance,property,top,,,-,,,top,Number,エリアの上端の座標を返します。,
+datamateArea.bottom,instance,property,bottom,,,-,,,bottom,Number,エリアの下端の座標を返します。,
