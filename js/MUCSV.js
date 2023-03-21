@@ -187,6 +187,7 @@ class MUCSV
 			let field = fields[i];
 			// field = field.replace("  ", "\n");
 			const values = field.split(",");
+			console.log(values);
 			this.fields.push(values);
 
 			// Set row //
