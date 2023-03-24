@@ -17,8 +17,8 @@ function loadHandler(_e)
 		setupReference();
 
 	// ver1.2.6a, replace info //
-	replace(".version", "1.2.7a");
-	replace(".lastupdate", "2023.03.16");
+	replace(".version", "1.2.8a");
+	replace(".lastupdate", "2023.03.24");
 }
 
 function replace(_query, _value)
