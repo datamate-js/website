@@ -126,7 +126,7 @@ Datamate.makeAreas,static,method,makeAreas,"_x
 _y
 _width
 _height
-_xAreas,
+_xAreas
 _yAreas","Number
 Number
 Number
