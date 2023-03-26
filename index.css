@@ -287,12 +287,15 @@ pre.language-html {
 #reference ul h3 {
     margin-top: 20px;
 }
-#reference ul li {
+#reference ul li.ref-description {
+    font-size: 0.8em;
+}
+#reference ul li[data-ref-manager] {
     cursor: pointer;
     color: #993388;
     transition: opacity 0.3s;
 }
-#reference ul li:hover {
+#reference ul li[data-ref-manager]:hover {
     opacity: 0.5;
 }
 
