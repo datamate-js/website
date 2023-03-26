@@ -144,7 +144,7 @@ Height for layout space.
 The number of horizontal areas in the area.
 The number of vertical areas in the area.",,,,"指定したレイアウトスペースの範囲で、分割エリアを作成します。
 
-_x, _y, _width, _heightで分割エリアを作成する全体の範囲を指定します。_xArea, _yAreaで水平方向、垂直方向にエリアをいくつ作成するかを指定します。例えば、Datamte.makeAreas(0, 0, 400, 400, 4, 2);と指定した場合、400x400の範囲に、4x2（計8）のエリア（DatamateAreaオブジェクト）を作成します。","Create divided areas within a specified layout space.
+_x, _y, _width, _heightでレイアウトスペース全体の範囲を指定します。_xArea, _yAreaで水平方向、垂直方向にエリアをいくつ作成するかを指定します。例えば、Datamte.makeAreas(0, 0, 400, 400, 4, 2);と指定した場合、400x400の範囲に、4x2（計8）のエリア（DatamateAreaオブジェクト）を作成します。","Create divided areas within a specified layout space.
 
 Specify the overall range for creating divided areas with _x, _y, _width, _height. Specify the number of areas to create horizontally and vertically with _xArea and _yArea. For example, if you specify Datamte.makeAreas(0, 0, 400, 400, 4, 2), it will create 8 DatamateArea objects, divided into a 4x2 grid within a 400x400 range."
 Datamate.bindAreas,static,method,bindAreas,_indexes,Array,-,割り当てる番号の配列,Array for remapping indexes.,,,,"分割エリアに対して、与えられた番号を割り当てます。
