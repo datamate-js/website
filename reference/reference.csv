@@ -9,6 +9,16 @@ Values for the new row.",,,,"新しい行を作成します。
 _rowKeyには作成する行の名前を指定します。_valuesには、作成する行のデータを配列として設定します。この場合_valuesは必須です。
 _rowKeyに名前ではなく、１つまたは複数のcsvのファイルパスを配列として渡した場合、csvファイルを読み込み、解析してデータテーブルを作成します。この場合。_valuesにはnullを渡します。","Create a new row with new values by set the name of new row to _rowKey as String, and set the values as Array to _values. 
 When setting null to _values and csv file paths as Array to _rowKey, Datamate try to load the csv files and make data table of them. "
+Datamate.setHeaderEnables,static,method,setHeaderEnables,"_rowHeaderEnabled
+_columnHeaderEnabled","Boolean
+Boolean","true
+true","１行目をヘッダ行にする
+１列目をヘッダ列にする","Enable the first row as header.
+Enable the first column as header.",,,,"最初の行、列をヘッダにするかどうかを指定します。
+
+_rowHeaderEnabledをtrueにすると、最初の行がヘッダ行として扱われます。_columnHeaderEnabledをtrueにすると、最初の列がヘッダ列として扱われます。デフォルトは両方ともtrueです。","Set enable or distable the first row and column are headers.
+
+If _rowHeaderEnabled is true, the first row will be a header row. If _columnHeaderEnabeld is true, the first column will be a header column. The default of both are true."
 Datamate.plot,static,method,plot,,,-,,,,,,Datamateが提供するビルトインチャートを表示します。,Show built-in chart provided by Datamate.
 Datamate.value,static,method,value,"_rowKey
 _columnKey
@@ -40,35 +50,57 @@ _target","Number
 Number","-
 Datamate.ROW","インデックス
 取得する対象","Row index of interset.
-Target of interest.",row name,row name,String,"_indexで指定した番号のヘッダ名を返します。
+Target of interest.",データ行のヘッダ名,row name,String,"_indexで指定した番号のヘッダ名を返します。
 
 _targetでヘッダを取得する対象（行: Datamate.ROWまたは列: Datamate.COLUMN）を指定します。デフォルトはDatamate.ROWです。",Return the name of given index of row. We can select the target for getting header name as Datamte.ROW or Datamte.COLUMN. Default is Datamate.ROW.
-Datamate.rowName,static,method,rowName,_index,Number,-,行のインデックス,Row index of interset.,row name,row name,,指定した行番号のヘッダ名を返します。,Return the name of given index of row.
-Datamate.columnName,static,method,columnName,_index,Number,-,列のインデックス,Column index of interset.,column name,column name,,指定した列番号のヘッダ名を返します。,Return the name of given index of column.
+Datamate.rowName,static,method,rowName,_index,Number,-,行のインデックス,Row index of interset.,データ行のヘッダ名,row name,String,指定した行番号のヘッダ名を返します。,Return the name of given index of row.
+Datamate.columnName,static,method,columnName,_index,Number,-,列のインデックス,Column index of interset.,データ列のヘッダ名,column name,String,指定した列番号のヘッダ名を返します。,Return the name of given index of column.
+Datamate.index,static,method,index,"_name
+_target","String
+Number","-
+Datamate.ROW","ヘッダ名
+取得する対象","Row header name of interset.
+Target of interest.",データ行の番号,row index,Number,"_indexで指定した番号のヘッダ名を返します。
+
+_targetでヘッダを取得する対象（行: Datamate.ROWまたは列: Datamate.COLUMN）を指定します。デフォルトはDatamate.ROWです。",Return the name of given index of row. We can select the target for getting header name as Datamte.ROW or Datamte.COLUMN. Default is Datamate.ROW.
+Datamate.rowIndex,static,method,rowIndex,_name,String,-,行のヘッダ名,Row header name of interset.,データ行の番号,row index,Number,指定した行番号のヘッダ名を返します。,Return the name of given index of row.
+Datamate.columnIndex,static,method,columnIndex,_name,String,-,列のヘッダ名,Column header name of interset.,データ列の番号,column index,Number,指定した列番号のヘッダ名を返します。,Return the name of given index of column.
 Datamate.focusX,static,method,focusX,"_offset
 _interpolation","Number
 Boolean","0
 false","フォーカス列からのオフセット
 補間の有効化","Offset from current focus column index
-Enable of interpolation",column index,column index,Number,"現在フォーカスしているデータの列の番号を返します。
+Enable of interpolation",列の番号,column index,Number,"現在フォーカスしているデータの列の番号を返します。
 
-_offsetの値を設定すると、現在のフォーカス列からの相対位置の番号を返します。_interpolationをtrueにすると、現在のフォーカスが２つの列の間に位置する場合、小数点で返します。",
+_offsetの値を設定すると、現在のフォーカス列からの相対位置の番号を返します。_interpolationをtrueにすると、現在のフォーカスが２つの列の間に位置する場合、小数点で返します。","Return the current focus index of the column.
+
+If the _offset is set to any number, return the column index that is skipped by the given number. If _interpolation is true, return the interpolated index when the focus is positioned between the lower column index and the next column index."
 Datamate.focusY,static,method,focusY,"_offset
 _interpolation","Number
 Boolean","0
 false","フォーカス行からのオフセット
 補間の有効化","Offset from current focus row index
-Enable of interpolation",row index,row index,Number,"現在フォーカスしているデータの行の番号を返します。
+Enable of interpolation",行の番号,row index,Number,"現在フォーカスしているデータの行の番号を返します。
 
-_offsetの値を設定すると、現在のフォーカス行からの相対位置の番号を返します。_interpolationをtrueにすると、現在のフォーカスが２つの列の間に位置する場合、小数点で返します。",
+_offsetの値を設定すると、現在のフォーカス行からの相対位置の番号を返します。_interpolationをtrueにすると、現在のフォーカスが２つの列の間に位置する場合、小数点で返します。","Return the current focus index of the row.
+
+If the _offset is set to any number, return the row index that is skipped by the given number. If _interpolation is true, return the interpolated index when the focus is positioned between the lower row index and the next row index."
 Datamate.right,static,method,right,_steps,Number,1,移動する量,Amout of moving.,,,,"フォーカス位置を_stepsに指定した数だけ右へ移動させます。
-_stepsには小数値も指定できます。",
+_stepsには小数値も指定できます。","Move the current focus to the right by given number.
+
+_steps can be set not only integer but also float number."
 Datamate.left,static,method,left,_steps,Number,1,移動する量,Amout of moving.,,,,"フォーカス位置を_stepsに指定した数だけ左へ移動させます。
-_stepsには小数値も指定できます。",
+_stepsには小数値も指定できます。","Move the current focus to the left by given number.
+
+_steps can be set not only integer but also float number."
 Datamate.up,static,method,up,_steps,Number,1,移動する量,Amout of moving.,,,,"フォーカス位置を_stepsに指定した数だけ上へ移動させます。
-_stepsには小数値も指定できます。",
+_stepsには小数値も指定できます。","Move the current focus to the up by given number.
+
+_steps can be set not only integer but also float number."
 Datamate.down,static,method,down,_steps,Number,1,移動する量,Amout of moving.,,,,"フォーカス位置を_stepsに指定した数だけ下へ移動させます。
-_stepsには小数値も指定できます。",
+_stepsには小数値も指定できます。","Move the current focus to the down by given number.
+
+_steps can be set not only integer but also float number."
 Datamate.play,static,method,play,"_playRateX
 _playRateY","Number
 Number","1.0
@@ -76,7 +108,9 @@ Number","1.0
 縦方向の再生速度（倍速）","Play rate for x direction
 Play rate for y direction",,,,"フォーカスを自動移動させます。
 
-再生レートは１秒間に移動させるセルの量で、デフォルトは１です（１秒間に１セル）。",
+再生レートは１秒間に移動させるセルの量で、デフォルトは１です（１秒間に１セル）。","Setting automatic moving focus.
+
+If the play rate is greater than 0, the cell focus will be moved at a given interval. A play rate of 1.0 means that the focus moves at an interval of 1 second. _playRateX is the interval for the horizontal direction (column change), and _playRateY is the interval for the vertical direction (row change). The default _playRateX value is 1.0, and the default _playRateY value is 0.0."
 Datamate.loop,static,method,loop,"_loopX
 _loopY","Boolean
 Boolean","false
@@ -84,39 +118,46 @@ false","横方向の再生ループ
 縦方向の再生ループ","Loop enabled for x direction
 Loop enabled for y direction",,,,"フォーカス移動時に、データテーブルの端に到達した際にループにするかどうかを指定します。
 
-trueに指定した場合、フォーカスがデータテーブルの端に到達すると、逆側の端へフォーカスを移動させます。",
+trueに指定した場合、フォーカスがデータテーブルの端に到達すると、逆側の端へフォーカスを移動させます。","Specify whether to loop or not when the focus reaches the edge of the data table during focus movement.
+
+If set to true, when the focus reaches the edge of the data table, it will be moved to the opposite edge.
+"
 Datamate.makeAreas,static,method,makeAreas,"_x
 _y
 _width
 _height
-_xBlocks
-_yBlocks","Number
+_xAreas,
+_yAreas","Number
 Number
 Number
 Number
 Number
-Number",-,"エリア全体の横位置
-エリア全体の縦位置
-エリア全体の横幅
-エリア全体の縦幅
-エリア全体の横方向のブロック数
-エリア全体の縦方向のブロック数","Horizontal position for entire area.
-Vertical position for entire area.
-Width for entire area.
-Height for entire area.
-The number of horizontal blocks in the area.
-The number of vertical blocks in the area.",,,,分割エリアを作成します。,
+Number",-,"レイアウトスペースの横位置
+レイアウトスペースの縦位置
+レイアウトスペースの横幅
+レイアウトスペースの縦幅
+レイアウトスペースの水平方向のエリア数
+レイアウトスペースの垂直方向のエリア数","Horizontal position for layout space.
+Vertical position for layout space.
+Width for layout space.
+Height for layout space.
+The number of horizontal areas in the area.
+The number of vertical areas in the area.",,,,"指定したレイアウトスペースの範囲で、分割エリアを作成します。
+
+_x, _y, _width, _heightで分割エリアを作成する全体の範囲を指定します。_xArea, _yAreaで水平方向、垂直方向にエリアをいくつ作成するかを指定します。例えば、Datamte.makeAreas(0, 0, 400, 400, 4, 2);と指定した場合、400x400の範囲に、4x2（計8）のエリア（DatamateAreaオブジェクト）を作成します。","Create divided areas within a specified layout space.
+
+Specify the overall range for creating divided areas with _x, _y, _width, _height. Specify the number of areas to create horizontally and vertically with _xArea and _yArea. For example, if you specify Datamte.makeAreas(0, 0, 400, 400, 4, 2), it will create 8 DatamateArea objects, divided into a 4x2 grid within a 400x400 range."
 Datamate.bindAreas,static,method,bindAreas,_indexes,Array,-,割り当てる番号の配列,Array for remapping indexes.,,,,"分割エリアに対して、与えられた番号を割り当てます。
 
 area()関数で取得する際の番号と位置を変更したい場合に使用します。",
-Datamate.area,static,method,area,_index,Number,-,エリア番号,Index of area,area,area,DatamateArea,指定番号のエリア情報（DatamateArea）を取得します。,
-datamateArea.x,instance,property,x,,,-,,,x,x,Number,エリアのx座標を返します。,
-datamateArea.y,instance,property,y,,,-,,,y,y,Number,エリアのy座標を返します。,
-datamateArea.width,instance,property,width,,,-,,,width,width,Number,エリアの横幅を返します。,
-datamateArea.height,instance,property,height,,,-,,,height,height,Number,エリアの縦幅を返します。,
-datamateArea.centerX,instance,property,centerX,,,-,,,centerX,centerX,Number,エリアの中心のx座標を返します。,
-datamateArea.centerY,instance,property,centerY,,,-,,,centerY,centerY,Number,エリアの中心のy座標を返します。,
-datamateArea.left,instance,property,left,,,-,,,left,left,Number,エリアの左端の座標を返します。,
-datamateArea.right,instance,property,right,,,-,,,right,right,Number,エリアの右端の座標を返します。,
-datamateArea.top,instance,property,top,,,-,,,top,top,Number,エリアの上端の座標を返します。,
-datamateArea.bottom,instance,property,bottom,,,-,,,bottom,bottom,Number,エリアの下端の座標を返します。,
+Datamate.area,static,method,area,_index,Number,-,エリア番号,Index of area,DatamateAreaオブジェクト,area,DatamateArea,指定番号のエリア情報（DatamateArea）を取得します。,
+datamateArea.x,instance,property,x,,,-,,,エリアのx座標,x,Number,エリアのx座標を返します。,
+datamateArea.y,instance,property,y,,,-,,,エリアのy座標,y,Number,エリアのy座標を返します。,
+datamateArea.width,instance,property,width,,,-,,,エリアの横幅,width,Number,エリアの横幅を返します。,
+datamateArea.height,instance,property,height,,,-,,,エリアの高さ,height,Number,エリアの縦幅を返します。,
+datamateArea.centerX,instance,property,centerX,,,-,,,エリアの中央のx座標,centerX,Number,エリアの中心のx座標を返します。,
+datamateArea.centerY,instance,property,centerY,,,-,,,エリアの中央のy座標,centerY,Number,エリアの中心のy座標を返します。,
+datamateArea.left,instance,property,left,,,-,,,エリアの左端の座標,left,Number,エリアの左端の座標を返します。,
+datamateArea.right,instance,property,right,,,-,,,エリアの右端の座標,right,Number,エリアの右端の座標を返します。,
+datamateArea.top,instance,property,top,,,-,,,エリアの上端の座標,top,Number,エリアの上端の座標を返します。,
+datamateArea.bottom,instance,property,bottom,,,-,,,エリアの下端の座標,bottom,Number,エリアの下端の座標を返します。,
