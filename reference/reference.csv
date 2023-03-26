@@ -136,8 +136,8 @@ Number",-,"レイアウトスペースの横位置
 レイアウトスペースの縦位置
 レイアウトスペースの横幅
 レイアウトスペースの縦幅
-レイアウトスペースの水平方向のエリア数
-レイアウトスペースの垂直方向のエリア数","Horizontal position for layout space.
+レイアウトスペースの横方向のエリア数
+レイアウトスペースの縦方向のエリア数","Horizontal position for layout space.
 Vertical position for layout space.
 Width for layout space.
 Height for layout space.
